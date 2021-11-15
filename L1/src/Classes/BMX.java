@@ -2,12 +2,8 @@ package Classes;
 
 import Classes.Сomponents.*;
 import Enumerations.Turns;
-import Interfaces.IControlable;
-import Interfaces.IRideable;
-import groovy.transform.ToString;
 
 import java.util.List;
-import java.util.function.DoubleToIntFunction;
 
 public class BMX extends Vehicle{
 
@@ -24,6 +20,9 @@ public class BMX extends Vehicle{
     private Frame Frame;
     private List<BearingBall> BearingBalls;
 
+    /**
+     * @param b bmx builder instance
+     */
     private BMX(BMXBuilder b)
     {
         this.CompanyName = b.CompanyName;
@@ -38,34 +37,43 @@ public class BMX extends Vehicle{
     }
 
     /**
-     *
-     * Controls BMX
-     *
-     * @param turn  turn of the controls
+     * @param turn turn of the controls
+     * @return description of result of the action
      */
-    public void TurnIt(Turns turn){
+    public String TurnIt(Turns turn){
+        String operationResult = "Nothing happens";
         switch (turn){
-            case UpTurn -> Stunt();
-            case RightTurn -> RightTurn();
-            case LeftTurn -> LeftTurn();
+            case UpTurn:{
+                operationResult = Stunt();
+                break;
+            }
+            case RightTurn: {
+                operationResult = RightTurn();
+            break;}
+            case LeftTurn : {
+                operationResult = LeftTurn();
+            }
         }
+        return operationResult;
     }
 
-    private void Stunt(){
+    private String Stunt(){
         MovingAngle=0;
-        DoFun();
+        return DoFun();
     }
 
-    private void RightTurn(){MovingAngle++;}
-    private void LeftTurn(){MovingAngle--;}
-    private void DoFun(){};
+    private String RightTurn(){MovingAngle++;  return "The right turn angle has increased";}
+    private String LeftTurn(){MovingAngle--;return "The left turn angle has increased";}
+    private String DoFun(){return "rides on the back wheel";}
 
-    @override public String ToString(){
-        return this.CompanyName + super.getClass().getName();
+    @Override
+    public String toString(){
+        return (this.CompanyName + super.getClass().getName());
     }
 
-    @override public int hashCode(){
-        return MovingAngle.DoubleToIntFunction() || 0;
+    @Override
+    public int hashCode(){
+        return (int)MovingAngle;
     }
 
     public static class BMXBuilder {
@@ -80,8 +88,12 @@ public class BMX extends Vehicle{
         private Frame Frame;
         private List<BearingBall> BearingBalls;
 
+        /**
+         * @param CompanyName
+         * @return
+         */
         public BMXBuilder setCompanyName(String CompanyName) {
-            if (CompanyName != null && CompanyName.equals("")){
+            if (CompanyName != null && !CompanyName.equals("")){
                 this.CompanyName = CompanyName;
             } else {
                 throw new IllegalArgumentException();
@@ -89,6 +101,11 @@ public class BMX extends Vehicle{
             return this;
         }
 
+        /**
+         * @param FrontWheel
+         * @param BackWheel
+         * @return
+         */
         public BMXBuilder setWheels(Wheel FrontWheel,Wheel BackWheel) {
             if (FrontWheel != null || BackWheel != null) {
                 this.FrontWheel = FrontWheel;
@@ -99,6 +116,11 @@ public class BMX extends Vehicle{
             return this;
         }
 
+        /**
+         * @param RightPedal
+         * @param LeftPedal
+         * @return
+         */
         public BMXBuilder setPedals(Pedal RightPedal, Pedal LeftPedal) {
             if (RightPedal != null || LeftPedal != null) {
                 this.RightPedal = RightPedal;
@@ -109,6 +131,10 @@ public class BMX extends Vehicle{
             return this;
         }
 
+        /**
+         * @param Handlebar
+         * @return
+         */
         public BMXBuilder setHandlebar(Handlebar Handlebar) {
             if (Handlebar != null) {
                 this.Handlebar = Handlebar;
@@ -118,6 +144,10 @@ public class BMX extends Vehicle{
             return this;
         }
 
+        /**
+         * @param Seat
+         * @return
+         */
         public BMXBuilder setSeat(Seat Seat) {
             if (Seat != null) {
                 this.Seat = Seat;
@@ -127,6 +157,10 @@ public class BMX extends Vehicle{
             return this;
         }
 
+        /**
+         * @param Frame
+         * @return
+         */
         public BMXBuilder setFrame(Frame Frame) {
             if (Frame != null) {
                 this.Frame = Frame;
@@ -136,6 +170,10 @@ public class BMX extends Vehicle{
             return this;
         }
 
+        /**
+         * @param BearingBalls
+         * @return bmx buider instance
+         */
         public BMXBuilder setBearingBalls(List<BearingBall> BearingBalls) {
             if (BearingBalls.stream().count() != 0) {
                 this.BearingBalls = BearingBalls;
@@ -145,6 +183,9 @@ public class BMX extends Vehicle{
             return this;
         }
 
+        /**
+         * @return instance of BMX
+         */
         public BMX CreateInstance()
         {
             return new BMX(this);

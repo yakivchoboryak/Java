@@ -1,5 +1,5 @@
 package Enumerations;
 
 public enum Turns {
-    LeftTurn, UpTurn, RightTurn
+    LeftTurn, UpTurn, RightTurn, DownTurn
 }

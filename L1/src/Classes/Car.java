@@ -11,13 +11,18 @@ public class Car extends Vehicle{
      *
      * @param turn  turn of the controls
      */
-    public void TurnIt(Turns turn){
+    public String TurnIt(Turns turn){
+        String operationResult = "Nothing happens";
         switch (turn){
-            case RightTurn -> RightTurn();
-            case LeftTurn -> LeftTurn();
+            case RightTurn: {
+                operationResult = RightTurn();
+            break;}
+            case LeftTurn : {
+                operationResult = LeftTurn();}
         }
+        return operationResult;
     }
 
-    private void RightTurn(){MovingAngle++;}
-    private void LeftTurn(){MovingAngle--;}
+    private String RightTurn(){MovingAngle++;  return "The right turn angle has increased";}
+    private String LeftTurn(){MovingAngle--;return "The left turn angle has increased";}
 }

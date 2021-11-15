@@ -10,15 +10,29 @@ public class Helicopter extends Vehicle {
      *
      * @param turn  turn of the controls
      */
-    public void TurnIt(Turns turn){
+    public String TurnIt(Turns turn){
+        String operationResult = "Nothing happens";
         switch (turn){
-            case UpTurn -> Fly();
-            case RightTurn -> RightTurn();
-            case LeftTurn -> LeftTurn();
+            case UpTurn:{
+                operationResult = Fly();
+                break;
+            }
+            case RightTurn: {
+                operationResult = RightTurn();
+                break;}
+            case LeftTurn : {
+                operationResult = LeftTurn();
+                break;
+            }
+            case DownTurn : {
+                operationResult = Down();
+            }
         }
+        return operationResult;
     }
 
-    private void Fly(){}
-    private void RightTurn(){}
-    private void LeftTurn(){}
+    private String Fly(){return "Helicopter gaining altitude";}
+    private String Down(){return "Helicopter is going down";}
+    private String RightTurn(){ return "The position in space has changed";}
+    private String LeftTurn(){return "the position in space has changed";}
 }
